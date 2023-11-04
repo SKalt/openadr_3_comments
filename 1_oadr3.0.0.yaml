@@ -2076,7 +2076,7 @@ components:
       description: A pair of floats typically used as a point on a 2 dimensional grid.
       required:
         - x
-        - y
+        - "y"
       properties:
         x:
           type: number
@@ -2085,7 +2085,7 @@ components:
           example: 1.0
           nullable: true
           default: null
-        y:
+        "y":
           type: number
           format: float
           description: A value on a y axis.
