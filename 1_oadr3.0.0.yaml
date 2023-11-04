@@ -2264,7 +2264,11 @@ components:
         object:
           type: object
           description: the object that is the subject of the notification.
-          example: {}
+          example: {
+            objectType: PROGRAM,
+            programName: ResTOU,
+            id: program-123,
+          }
           oneOf:
             - $ref: '#/components/schemas/program'
             - $ref: '#/components/schemas/report'
