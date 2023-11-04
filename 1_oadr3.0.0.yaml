@@ -483,7 +483,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if program with the same programName exists.
+          description: Conflict. Implementation dependent response if a report with the same reportID exists.
           content:
             application/json:
               schema:
@@ -732,7 +732,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if program with the same programName exists.
+          description: Conflict. Implementation dependent response if an event with the same id exists.
           content:
             application/json:
               schema:
@@ -1011,7 +1011,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if program with the same programName exists.
+          description: Conflict. Implementation dependent response if a subscription with the same subscriptionID exists.
           content:
             application/json:
               schema:
@@ -1254,7 +1254,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if program with the same programName exists.
+          description: Conflict. Implementation dependent response if a VEN with the same venID exists.
           content:
             application/json:
               schema:
@@ -1506,7 +1506,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if program with the same programName exists.
+          description: Conflict. Implementation dependent response if a resource with the same resourceID exists.
           content:
             application/json:
               schema:
