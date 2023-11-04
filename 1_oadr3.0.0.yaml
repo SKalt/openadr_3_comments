@@ -1679,7 +1679,7 @@ components:
                 type: string
                 format: uri
                 description: A human or machine readable program description
-                example: www.myCorporation.com/myProgramDescription
+                example: https://www.myCorporation.com/myProgramDescription
         bindingEvents:
           type: boolean
           description: True if events are fixed once transmitted.
