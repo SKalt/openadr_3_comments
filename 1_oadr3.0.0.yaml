@@ -1607,13 +1607,13 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/objectID'
-          # VTN provisioned ID of this object instance.
+          description: URL safe VTN provisioned ID of this object instance.
         createdDateTime:
           $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object creation.
+          description: Created by the VTN on object creation.
         modificationDateTime:
           $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object modification.
+          description: Written by the VTN on object modification.
         objectType:
           type: string
           description: Used as discriminator, e.g. notification.object
@@ -1660,10 +1660,10 @@ components:
           default: null
         timeZoneOffset:
           $ref: '#/components/schemas/duration'
-          # Number of hours different from UTC for the standard time applicable to the program.
+          description: Number of hours different from UTC for the standard time applicable to the program.
         intervalPeriod:
           $ref: '#/components/schemas/intervalPeriod'
-          # The temporal span of the program, could be years long.
+          description: The temporal span of the program; potentially years long.
         programDescriptions:
           type: array
           description: A list of programDescriptions
@@ -1717,23 +1717,23 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/objectID'
-          # VTN provisioned ID of this object instance.
+          description: URL safe VTN provisioned ID of this object instance.
         createdDateTime:
           $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object creation.
+          description: Created by the VTN on object creation.
         modificationDateTime:
           $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object modification.
+          description: Written by the VTN on object modification.
         objectType:
           type: string
           description: Used as discriminator, e.g. notification.object
           enum: [REPORT]
         programID:
           $ref: '#/components/schemas/objectID'
-          # ID attribute of program object this report is associated with.
+          description: ID attribute of program object this report is associated with.
         eventID:
           $ref: '#/components/schemas/objectID'
-          # ID attribute of event object this report is associated with.
+          description: ID attribute of event object this report is associated with.
         clientName:
           type: string
           description: User generated identifier; may be VEN ID provisioned during program enrollment.
@@ -1748,12 +1748,11 @@ components:
           default: null
         payloadDescriptors:
           type: array
-          description: A list of reportPayloadDescriptors.
+          description: An optional list of objects that provide context to payload types.
           nullable: true
           default: null
           items:
             $ref: '#/components/schemas/reportPayloadDescriptor'
-          # An optional list of objects that provide context to payload types.
         resources:
           type: array
           description: A list of objects containing report data for a set of resources.
@@ -1772,7 +1771,7 @@ components:
                 default: null
               intervalPeriod:
                 $ref: '#/components/schemas/intervalPeriod'
-                # Defines default start and durations of intervals.
+                description: Defines default start and durations of intervals.
               intervals:
                 type: array
                 description: A list of interval objects.
@@ -1789,20 +1788,20 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/objectID'
-          # VTN provisioned ID of this object instance.
+          description: URL safe VTN provisioned ID of this object instance.
         createdDateTime:
           $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object creation.
+          description: Created by the VTN on object creation.
         modificationDateTime:
           $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object modification.
+          description: Written by the VTN on object modification.
         objectType:
           type: string
           description: Used as discriminator, e.g. notification.object
           enum: [EVENT]
         programID:
           $ref: '#/components/schemas/objectID'
-          # ID attribute of program object this event is associated with.
+          description: ID attribute of program object this event is associated with.
         eventName:
           type: string
           description: User defined string for use in debugging or User Interface.
@@ -1838,7 +1837,7 @@ components:
             $ref: '#/components/schemas/eventPayloadDescriptor'
         intervalPeriod:
           $ref: '#/components/schemas/intervalPeriod'
-          # Defines default start and durations of intervals.
+          description: Defines default start and durations of intervals.
         intervals:
           type: array
           description: A list of interval objects.
@@ -1857,13 +1856,13 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/objectID'
-          # VTN provisioned ID of this object instance.
+          description: URL safe VTN provisioned ID of this object instance.
         createdDateTime:
           $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object creation.
+          description: Created by the VTN on object creation.
         modificationDateTime:
           $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object modification.
+          description: Written by the VTN on object modification.
         objectType:
           type: string
           description: Used as discriminator, e.g. notification.object
@@ -1876,7 +1875,7 @@ components:
           default: null
         programID:
           $ref: '#/components/schemas/objectID'
-          # ID attribute of program object this subscription is associated with.
+          description: ID attribute of program object this subscription is associated with.
         objectOperations:
           type: array
           description: list of objects and operations to subscribe to.
@@ -1930,13 +1929,13 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/objectID'
-          # VTN provisioned ID of this object instance.
+          description: URL safe VTN provisioned ID of this object instance.
         createdDateTime:
           $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object creation.
+          description: Created by the VTN on object creation.
         modificationDateTime:
           $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object modification.
+          description: Written by the VTN on object modification.
         objectType:
           type: string
           description: Used as discriminator, e.g. notification.object.
@@ -1973,13 +1972,13 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/objectID'
-          # VTN provisioned ID of this object instance.
+          description: URL safe VTN provisioned ID of this object instance.
         createdDateTime:
           $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object creation.
+          description: Created by the VTN on object creation.
         modificationDateTime:
           $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object modification.
+          description: Written by the VTN on object modification.
         objectType:
           type: string
           description: Used as discriminator, e.g. notification.object
@@ -1992,7 +1991,7 @@ components:
           default: null
         venID:
           $ref: '#/components/schemas/objectID'
-          # VTN provisioned on object creation based on path, e.g. POST <>/ven/{venID}/resources.
+          description: VTN provisioned on object creation based on path, e.g. POST <>/ven/{venID}/resources.
         attributes:
           type: array
           description: A list of valuesMap objects describing attributes.
@@ -2019,7 +2018,7 @@ components:
           example: 0
         intervalPeriod:
           $ref: '#/components/schemas/intervalPeriod'
-          # Defines default start and durations of intervals.
+          description: Defines default start and durations of intervals.
         payloads:
           type: array
           description: A list of valuesMap objects.
@@ -2036,13 +2035,13 @@ components:
       properties:
         start:
           $ref: '#/components/schemas/dateTime'
-          #  The start time of an interval or set of intervals.
+          description: The start time of an interval or set of intervals.
         duration:
           $ref: '#/components/schemas/duration'
-          #  The duration of an interval or set of intervals.
+          description: The duration of an interval or set of intervals.
         randomizeStart:
           $ref: '#/components/schemas/duration'
-          #  Indicates a randomization time that may be applied to start.
+          description: Indicates a randomization time that may be applied to start.
     valuesMap:
       type: object
       description: |
