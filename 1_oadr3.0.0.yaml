@@ -1,7 +1,5 @@
 openapi: 3.0.0
-servers:
-  - description: base path
-    url: http://localhost:8081/openadr3
+# this protocol might run on any path under any domain; the baseURL(s) are implementation dependent
 info:
   title: OpenADR 3.0.0 API
   version: "3.0.0"
