@@ -639,7 +639,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if event with  same name already exists.
+          description: Conflict. Implementation dependent response if event with the same name already exists.
           content:
             application/json:
               schema:
@@ -977,7 +977,7 @@ paths:
     put:
       tags:
         - subscriptions
-      summary: update  subscription
+      summary: update a specific subscription
       operationId: updateSubscription
       description: Update the subscription specified by subscriptionID specified in path.
       security:
@@ -1023,7 +1023,7 @@ paths:
     delete:
       tags:
         - subscriptions
-      summary: delete  subscription
+      summary: delete a specific subscription
       operationId: deleteSubscription
       description: Delete the subscription specified by subscriptionID specified in path.
       security:
@@ -1220,7 +1220,7 @@ paths:
     put:
       tags:
         - vens
-      summary: update  ven
+      summary: update a specific ven
       operationId: updateVen
       description: Update the ven specified by venID specified in path.
       security:
@@ -1266,7 +1266,7 @@ paths:
     delete:
       tags:
         - vens
-      summary: delete  ven
+      summary: delete a specific ven
       operationId: deleteVen
       description: Delete the ven specified by venID specified in path.
       security:
@@ -1410,7 +1410,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if resource with  same resourceIdentifier already exists.
+          description: Conflict. Implementation dependent response if resource with the same resourceIdentifier already exists.
           content:
             application/json:
               schema:
@@ -1472,7 +1472,7 @@ paths:
     put:
       tags:
         - vens
-      summary: update  ven resource
+      summary: update a specific ven resource
       operationId: updateVenResource
       description: Update the ven resource specified by venID and resourceID specified in path.
       security:
@@ -1518,7 +1518,7 @@ paths:
     delete:
       tags:
         - vens
-      summary: delete  ven resource
+      summary: delete a specific ven resource
       operationId: deleteVenResource
       description: Delete the ven resource specified by venID and resourceID specified in path.
       security:
