@@ -1665,6 +1665,8 @@ components:
         timeZoneOffset:
           $ref: '#/components/schemas/duration'
           description: Number of hours different from UTC for the standard time applicable to the program.
+          nullable: true
+          default: null
         intervalPeriod:
           $ref: '#/components/schemas/intervalPeriod'
           description: The temporal span of the program; potentially years long.
@@ -2065,9 +2067,13 @@ components:
         duration:
           $ref: '#/components/schemas/duration'
           description: The duration of an interval or set of intervals.
+          nullable: true
+          default: null
         randomizeStart:
           $ref: '#/components/schemas/duration'
           description: Indicates a randomization time that may be applied to start.
+          nullable: true
+          default: null
     valuesMap:
       type: object
       description: |
@@ -2315,8 +2321,7 @@ components:
       type: string
       description: duration in ISO 8601 format
       example: PT1H
-      nullable: true
-      default: null
+      format: duration
     problem:
       type: object
       description: |
