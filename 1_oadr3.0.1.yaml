@@ -7,7 +7,7 @@ info:
   version: "3.0.1"
   description: |
     The OpenADR 3 API supports energy retailer to energy customer Demand Response programs.
-    See OpenADR 3 User Guide and Defintions for detailed descriptions of usage.
+    See OpenADR 3 User Guide and definitions for detailed descriptions of usage.
     The API includes the following capabilities and operations:
 
     __Manage programs:__
@@ -2514,7 +2514,7 @@ components:
           type: string
           minLength: 1
           maxLength: 4096
-          description: access token povided by Authorization service
+          description: access token provided by Authorization service
           example: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
         token_type:
           type: string
@@ -2529,7 +2529,7 @@ components:
           type: string
           minLength: 1
           maxLength: 4096
-          description: refresh token povided by Authorization service
+          description: refresh token provided by Authorization service
           example: IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk
         scope:
           type: string
@@ -2539,7 +2539,7 @@ components:
           example: read_all
     authError:
       type: object
-      description: error reponse on HTTP 400 from auth/token per https://www.rfc-editor.org/rfc/rfc6749
+      description: error response on HTTP 400 from auth/token per https://www.rfc-editor.org/rfc/rfc6749
       required:
         - error
       properties:
