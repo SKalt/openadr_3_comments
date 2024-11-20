@@ -1,10 +1,13 @@
 openapi: 3.0.0
-# this protocol might run on any path under any domain; the baseURL(s) are implementation dependent
+servers:
+  - description: base path
+    url: http://localhost:8081/openadr3/3.0.1
 info:
-  title: OpenADR 3.0.0 API
-  version: "3.0.0"
+  title: OpenADR 3 API
+  version: "3.0.1"
   description: |
-    The OpenADR 3.0.0 API supports energy retailer to energy customer Demand Response programs.
+    The OpenADR 3 API supports energy retailer to energy customer Demand Response programs.
+    See OpenADR 3 User Guide and Defintions for detailed descriptions of usage.
     The API includes the following capabilities and operations:
 
     __Manage programs:__
@@ -52,6 +55,7 @@ paths:
       operationId: searchAllPrograms
       description: |
         List all programs known to the server.
+        May filter results by targetType and targetValues as query params.
         Use skip and pagination query params to limit response size.
       security:
         - oAuth2ClientCredentials: [read_all]
@@ -199,6 +203,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '500':
           description: Internal Server Error.
           content:
@@ -235,6 +245,12 @@ paths:
                 $ref: '#/components/schemas/problem'
         '403':
           description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
           content:
             application/json:
               schema:
@@ -279,6 +295,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '500':
           description: Internal Server Error.
           content:
@@ -293,7 +315,7 @@ paths:
       operationId: searchAllReports
       description: |
         List all reports known to the server.
-        May filter results by programID and clientName as query param.
+        May filter results by programID, eventID,  and clientName as query param.
         Use skip and pagination query params to limit response size.
       security:
         - oAuth2ClientCredentials: [read_all]
@@ -306,6 +328,13 @@ paths:
         required: false
         description: filter results to reports with programID.
         example: program-999
+      - name: eventID
+        in: query
+        schema:
+          $ref: '#/components/schemas/objectID'
+        required: false
+        description: filter results to reports with eventID.
+        example: event-999
       - name: clientName
         in: query
         schema:
@@ -440,6 +469,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '500':
           description: Internal Server Error.
           content:
@@ -480,8 +515,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if a report with the same reportID exists.
+          description: Conflict. Implementation dependent response if program with the same programName exists.
           content:
             application/json:
               schema:
@@ -497,7 +538,7 @@ paths:
         - reports
       summary: delete a report
       operationId: deleteReport
-      description: Delete the program specified by the reportID in path.
+      description: Delete the report specified by the reportID in path.
       security:
         - oAuth2ClientCredentials: [write_reports]
         - bearerAuth: []
@@ -520,6 +561,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '500':
           description: Internal Server Error.
           content:
@@ -533,7 +580,9 @@ paths:
       summary: searches all events
       operationId: searchAllEvents
       description: |
-        List all events known to the server. May filter results by programID query param.
+        List all events known to the server.
+        May filter results by programID query param.
+        May filter results by targetType and targetValues as query params.
         Use skip and pagination query params to limit response size.
       security:
         - oAuth2ClientCredentials: [read_all]
@@ -639,7 +688,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if event with the same name already exists.
+          description: Conflict. Implementation dependent response if event with  same name already exists.
           content:
             application/json:
               schema:
@@ -674,9 +723,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/event'
+                $ref: '#/components/schemas/event'
         '400':
           description: Bad Request.
           content:
@@ -685,6 +732,12 @@ paths:
                 $ref: '#/components/schemas/problem'
         '403':
           description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
           content:
             application/json:
               schema:
@@ -729,8 +782,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if an event with the same id exists.
+          description: Conflict. Implementation dependent response if program with the same programName exists.
           content:
             application/json:
               schema:
@@ -770,6 +829,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '500':
           description: Internal Server Error.
           content:
@@ -784,7 +849,8 @@ paths:
       operationId: searchSubscriptions
       description: |
         List all subscriptions.
-        May filter results by programID and clientID as query params.
+        May filter results by programID and clientName as query params.
+        May filter results by targetType and targetValues as query params.
         May filter results by objects as query param. See objectTypes schema.
         Use skip and pagination query params to limit response size.
       security:
@@ -968,6 +1034,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '500':
           description: Internal Server Error.
           content:
@@ -977,7 +1049,7 @@ paths:
     put:
       tags:
         - subscriptions
-      summary: update a specific subscription
+      summary: update  subscription
       operationId: updateSubscription
       description: Update the subscription specified by subscriptionID specified in path.
       security:
@@ -1008,8 +1080,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if a subscription with the same subscriptionID exists.
+          description: Conflict. Implementation dependent response if program with the same programName exists.
           content:
             application/json:
               schema:
@@ -1023,7 +1101,7 @@ paths:
     delete:
       tags:
         - subscriptions
-      summary: delete a specific subscription
+      summary: delete  subscription
       operationId: deleteSubscription
       description: Delete the subscription specified by subscriptionID specified in path.
       security:
@@ -1048,6 +1126,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '500':
           description: Internal Server Error.
           content:
@@ -1062,11 +1146,19 @@ paths:
       operationId: searchVens
       description: |
         List all vens.
+        May filter results by venName as query param.
+        May filter results by targetType and targetValues as query params.
         Use skip and pagination query params to limit response size.
       security:
         - oAuth2ClientCredentials: [read_all]
         - bearerAuth: []
       parameters:
+      - name: venName
+        in: query
+        description: Indicates ven objects w venName
+        required: false
+        schema:
+          type: string
       - name: targetType
         in: query
         description: Indicates targeting type, e.g. GROUP
@@ -1211,6 +1303,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '500':
           description: Internal Server Error.
           content:
@@ -1220,7 +1318,7 @@ paths:
     put:
       tags:
         - vens
-      summary: update a specific ven
+      summary: update  ven
       operationId: updateVen
       description: Update the ven specified by venID specified in path.
       security:
@@ -1251,8 +1349,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if a VEN with the same venID exists.
+          description: Conflict. Implementation dependent response if program with the same programName exists.
           content:
             application/json:
               schema:
@@ -1266,7 +1370,7 @@ paths:
     delete:
       tags:
         - vens
-      summary: delete a specific ven
+      summary: delete  ven
       operationId: deleteVen
       description: Delete the ven specified by venID specified in path.
       security:
@@ -1291,6 +1395,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '500':
           description: Internal Server Error.
           content:
@@ -1310,11 +1420,21 @@ paths:
         - vens
       summary: search ven resources
       operationId: searchVenResources
-      description: Return the ven resources specified by venID specified in path.
+      description: |
+        List all ven resources associated with ven with specified venID.
+        May filter results by resourceName as query params.
+        May filter results by targetType and targetValues as query params.
+        Use skip and pagination query params to limit response size.
       security:
         - oAuth2ClientCredentials: [read_all]
         - bearerAuth: []
       parameters:
+      - name: resourceName
+        in: query
+        description: Indicates resource objects with resourceName
+        required: false
+        schema:
+          type: string
       - name: targetType
         in: query
         description: Indicates targeting type, e.g. GROUP
@@ -1356,7 +1476,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/resource'
+                type: array
+                items:
+                  $ref: '#/components/schemas/resource'
         '400':
           description: Bad Request.
           content:
@@ -1365,6 +1487,12 @@ paths:
                 $ref: '#/components/schemas/problem'
         '403':
           description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
           content:
             application/json:
               schema:
@@ -1409,8 +1537,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if resource with the same resourceIdentifier already exists.
+          description: Conflict. Implementation dependent response if resource with  same resourceIdentifier already exists.
           content:
             application/json:
               schema:
@@ -1463,6 +1597,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '500':
           description: Internal Server Error.
           content:
@@ -1472,7 +1612,7 @@ paths:
     put:
       tags:
         - vens
-      summary: update a specific ven resource
+      summary: update  ven resource
       operationId: updateVenResource
       description: Update the ven resource specified by venID and resourceID specified in path.
       security:
@@ -1503,8 +1643,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '409':
-          description: Conflict. Implementation dependent response if a resource with the same resourceID exists.
+          description: Conflict. Implementation dependent response if program with the same programName exists.
           content:
             application/json:
               schema:
@@ -1518,7 +1664,7 @@ paths:
     delete:
       tags:
         - vens
-      summary: delete a specific ven resource
+      summary: delete  ven resource
       operationId: deleteVenResource
       description: Delete the ven resource specified by venID and resourceID specified in path.
       security:
@@ -1543,6 +1689,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/problem'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
         '500':
           description: Internal Server Error.
           content:
@@ -1550,40 +1702,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/problem'
   /auth/token:
-    get:
-      parameters:
-        - name: clientID
-          in: header
-          description: client ID to exchange for bearer token.
-          required: true
-          schema:
-            type: string
-            example: ven_client_99
-        - name: clientSecret
-          in: header
-          description: client secret to exchange for bearer token.
-          required: true
-          schema:
-            type: string
-            example: ven_secret_99
+    post:
       tags:
         - Auth
       summary: fetch a token
       operationId: fetchToken
       description: Return an access token based on clientID and clientSecret.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/clientCredentialRequest'
       responses:
         '200':
           description: OK.
           content:
             application/json:
               schema:
-                type: string
+                $ref: '#/components/schemas/clientCredentialResponse'
         '400':
           description: Bad Request.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/problem'
+                $ref: '#/components/schemas/authError'
         '403':
           description: Forbidden.
           content:
@@ -1607,24 +1750,23 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/objectID'
-          description: URL safe VTN provisioned ID of this object instance.
+          # VTN provisioned on object creation.
         createdDateTime:
           $ref: '#/components/schemas/dateTime'
-          description: Created by the VTN on object creation.
-          nullable: true
-          default: null
+          #  VTN provisioned on object creation.
         modificationDateTime:
           $ref: '#/components/schemas/dateTime'
-          description: Written by the VTN on object modification.
-          nullable: true
-          default: null
+          #  VTN provisioned on object modification.
         objectType:
           type: string
-          description: Used as discriminator, e.g. notification.object
+          description: Used as discriminator
           enum: [PROGRAM]
+          # VTN provisioned on object creation.
         programName:
           type: string
           description: Short name to uniquely identify program.
+          minLength: 1
+          maxLength: 128
           example: ResTOU
         programLongName:
           type: string
@@ -1664,17 +1806,13 @@ components:
           default: null
         timeZoneOffset:
           $ref: '#/components/schemas/duration'
-          description: Number of hours different from UTC for the standard time applicable to the program.
-          nullable: true
-          default: null
+          # Number of hours different from UTC for the standard time applicable to the program.
         intervalPeriod:
           $ref: '#/components/schemas/intervalPeriod'
-          description: The temporal span of the program; potentially years long.
+          # The temporal span of the program, could be years long.
         programDescriptions:
           type: array
           description: A list of programDescriptions
-          nullable: true
-          default: null
           items:
             required:
               - URL
@@ -1683,35 +1821,39 @@ components:
                 type: string
                 format: uri
                 description: A human or machine readable program description
-                example: https://www.myCorporation.com/myProgramDescription
+                example: www.myCorporation.com/myProgramDescription
+          nullable: true
+          default: null
         bindingEvents:
           type: boolean
           description: True if events are fixed once transmitted.
           example: false
-          default: false
+          nullable: true
+          default: null
         localPrice:
           type: boolean
           description: True if events have been adapted from a grid event.
           example: false
-          default: false
+          nullable: true
+          default: null
         payloadDescriptors:
           type: array
           description: A list of payloadDescriptors.
-          nullable: true
-          default: null
           items:
             anyOf:
               - $ref: '#/components/schemas/eventPayloadDescriptor'
               - $ref: '#/components/schemas/reportPayloadDescriptor'
             discriminator:
               propertyName: objectType
+          nullable: true
+          default: null
         targets:
           type: array
           description: A list of valuesMap objects.
-          nullable: true
-          default: null
           items:
             $ref: '#/components/schemas/valuesMap'
+          nullable: true
+          default: null
     report:
       type: object
       description: report object.
@@ -1723,33 +1865,30 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/objectID'
-          description: URL safe VTN provisioned ID of this object instance.
+          # VTN provisioned on object creation.
         createdDateTime:
           $ref: '#/components/schemas/dateTime'
-          description: Created by the VTN on object creation.
-          nullable: true
-          default: null
+          #  VTN provisioned on object creation.
         modificationDateTime:
           $ref: '#/components/schemas/dateTime'
-          description: Written by the VTN on object modification.
-          nullable: true
-          default: null
+          #  VTN provisioned on object modification.
         objectType:
           type: string
-          description: Used as discriminator, e.g. notification.object
+          description: Used as discriminator
           enum: [REPORT]
+          # VTN provisioned on object creation.
         programID:
           $ref: '#/components/schemas/objectID'
-          description: ID attribute of program object this report is associated with.
+          # ID attribute of program object this report is associated with.
         eventID:
           $ref: '#/components/schemas/objectID'
-          description: ID attribute of event object this report is associated with.
+          # ID attribute of event object this report is associated with.
         clientName:
           type: string
-          description: User generated identifier; may be VEN ID provisioned during program enrollment.
+          description: User generated identifier; may be VEN ID provisioned out-of-band.
+          minLength: 1
+          maxLength: 128
           example: VEN-999
-          nullable: true
-          default: null
         reportName:
           type: string
           description: User defined string for use in debugging or User Interface.
@@ -1758,11 +1897,12 @@ components:
           default: null
         payloadDescriptors:
           type: array
-          description: An optional list of objects that provide context to payload types.
-          nullable: true
-          default: null
+          description: A list of reportPayloadDescriptors.
           items:
             $ref: '#/components/schemas/reportPayloadDescriptor'
+          nullable: true
+          default: null
+          # An optional list of objects that provide context to payload types.
         resources:
           type: array
           description: A list of objects containing report data for a set of resources.
@@ -1775,13 +1915,13 @@ components:
             properties:
               resourceName:
                 type: string
+                minLength: 1
+                maxLength: 128
                 description: User generated identifier. A value of AGGREGATED_REPORT indicates an aggregation of more that one resource's data
                 example: RESOURCE-999
-                nullable: true
-                default: null
               intervalPeriod:
                 $ref: '#/components/schemas/intervalPeriod'
-                description: Defines default start and durations of intervals.
+                # Defines default start and durations of intervals.
               intervals:
                 type: array
                 description: A list of interval objects.
@@ -1791,31 +1931,28 @@ components:
       type: object
       description: |
         Event object to communicate a Demand Response request to VEN.
-        If intervalPeriod is present, sets start time and duration of intervals.
+        If intervalPeriod is present, sets default start time and duration of intervals.
       required:
         - programID
         - intervals
       properties:
         id:
           $ref: '#/components/schemas/objectID'
-          description: URL safe VTN provisioned ID of this object instance.
+          # VTN provisioned on object creation.
         createdDateTime:
           $ref: '#/components/schemas/dateTime'
-          description: Created by the VTN on object creation.
-          nullable: true
-          default: null
+          #  VTN provisioned on object creation.
         modificationDateTime:
           $ref: '#/components/schemas/dateTime'
-          description: Written by the VTN on object modification.
-          nullable: true
-          default: null
+          #  VTN provisioned on object modification.
         objectType:
           type: string
-          description: Used as discriminator, e.g. notification.object
+          description: Used as discriminator
           enum: [EVENT]
+          # VTN provisioned on object creation.
         programID:
           $ref: '#/components/schemas/objectID'
-          description: ID attribute of program object this event is associated with.
+          # ID attribute of program object this event is associated with.
         eventName:
           type: string
           description: User defined string for use in debugging or User Interface.
@@ -1824,6 +1961,7 @@ components:
           default: null
         priority:
           type: integer
+          minimum: 0
           description: Relative priority of event. A lower number is a higher priority.
           example: 0
           nullable: true
@@ -1831,27 +1969,27 @@ components:
         targets:
           type: array
           description: A list of valuesMap objects.
-          nullable: true
-          default: null
           items:
             $ref: '#/components/schemas/valuesMap'
+          nullable: true
+          default: null
         reportDescriptors:
           type: array
           description: A list of reportDescriptor objects. Used to request reports from VEN.
-          nullable: true
-          default: null
           items:
             $ref: '#/components/schemas/reportDescriptor'
+          nullable: true
+          default: null
         payloadDescriptors:
           type: array
           description: A list of payloadDescriptor objects.
-          nullable: true
-          default: null
           items:
             $ref: '#/components/schemas/eventPayloadDescriptor'
+          nullable: true
+          default: null
         intervalPeriod:
           $ref: '#/components/schemas/intervalPeriod'
-          description: Defines default start and durations of intervals.
+          # Defines default start and durations of intervals.
         intervals:
           type: array
           description: A list of interval objects.
@@ -1870,30 +2008,27 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/objectID'
-          description: URL safe VTN provisioned ID of this object instance.
+          # VTN provisioned on object creation.
         createdDateTime:
           $ref: '#/components/schemas/dateTime'
-          description: Created by the VTN on object creation.
-          nullable: true
-          default: null
+          #  VTN provisioned on object creation.
         modificationDateTime:
           $ref: '#/components/schemas/dateTime'
-          description: Written by the VTN on object modification.
-          nullable: true
-          default: null
+          #  VTN provisioned on object modification.
         objectType:
           type: string
-          description: Used as discriminator, e.g. notification.object
+          description: Used as discriminator.
           enum: [SUBSCRIPTION]
+          # VTN provisioned on object creation.
         clientName:
           type: string
-          description: User generated identifier, may be VEN identifier provisioned during program enrollment.
+          description: User generated identifier, may be VEN identifier provisioned out-of-band.
+          minLength: 1
+          maxLength: 128
           example: VEN-999
-          nullable: true
-          default: null
         programID:
           $ref: '#/components/schemas/objectID'
-          description: ID attribute of program object this subscription is associated with.
+          # ID attribute of program object this subscription is associated with.
         objectOperations:
           type: array
           description: list of objects and operations to subscribe to.
@@ -1935,10 +2070,10 @@ components:
         targets:
           type: array
           description: A list of valuesMap objects. Used by server to filter callbacks.
-          nullable: true
-          default: null
           items:
             $ref: '#/components/schemas/valuesMap'
+          nullable: true
+          default: null
     ven:
       type: object
       description: Ven represents a client with the ven role.
@@ -1947,44 +2082,47 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/objectID'
-          description: URL safe VTN provisioned ID of this object instance.
+          # VTN provisioned on object creation.
         createdDateTime:
           $ref: '#/components/schemas/dateTime'
-          description: Created by the VTN on object creation.
-          nullable: true
-          default: null
+          #  VTN provisioned on object creation.
         modificationDateTime:
           $ref: '#/components/schemas/dateTime'
-          description: Written by the VTN on object modification.
-          nullable: true
-          default: null
+          #  VTN provisioned on object modification.
         objectType:
           type: string
-          description: Used as discriminator, e.g. notification.object.
+          description: Used as discriminator.
           enum: [VEN]
+          # VTN provisioned on object creation.
         venName:
           type: string
-          description: User generated identifier, may be VEN identifier provisioned during program enrollment.
+          description: |
+            User generated identifier, may be VEN identifier provisioned out-of-band.
+            venName is expected to be unique within the scope of a VTN
+          minLength: 1
+          maxLength: 128
           example: VEN-999
-          nullable: true
-          default: null
         attributes:
           type: array
           description: A list of valuesMap objects describing attributes.
           items:
             $ref: '#/components/schemas/valuesMap'
+          nullable: true
+          default: null
         targets:
           type: array
           description: A list of valuesMap objects describing target criteria.
           items:
             $ref: '#/components/schemas/valuesMap'
+          nullable: true
+          default: null
         resources:
           type: array
           description: A list of resource objects representing end-devices or systems.
-          nullable: true
-          default: null
           items:
             $ref: '#/components/schemas/resource'
+          nullable: true
+          default: null
     resource:
       type: object
       description: |
@@ -1994,40 +2132,43 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/objectID'
-          description: URL safe VTN provisioned ID of this object instance.
+          # VTN provisioned on object creation.
         createdDateTime:
           $ref: '#/components/schemas/dateTime'
-          description: Created by the VTN on object creation.
-          nullable: true
-          default: null
+          #  VTN provisioned on object creation.
         modificationDateTime:
           $ref: '#/components/schemas/dateTime'
-          description: Written by the VTN on object modification.
-          nullable: true
-          default: null
+          #  VTN provisioned on object modification.
         objectType:
           type: string
-          description: Used as discriminator, e.g. notification.object
+          description: Used as discriminator.
           enum: [RESOURCE]
+          # VTN provisioned on object creation.
         resourceName:
           type: string
-          description: User generated identifier, resource may be configured with identifier out-of-band.
+          description: |
+            User generated identifier, resource may be configured with identifier out-of-band.
+            resourceName is expected to be unique within the scope of the associated VEN.
+          minLength: 1
+          maxLength: 128
           example: RESOURCE-999
-          nullable: true
-          default: null
         venID:
           $ref: '#/components/schemas/objectID'
-          description: VTN provisioned on object creation based on path, e.g. POST <>/ven/{venID}/resources.
+          # VTN provisioned on object creation based on path, e.g. POST <>/ven/{venID}/resources.
         attributes:
           type: array
           description: A list of valuesMap objects describing attributes.
           items:
             $ref: '#/components/schemas/valuesMap'
+          nullable: true
+          default: null
         targets:
           type: array
           description: A list of valuesMap objects describing target criteria.
           items:
             $ref: '#/components/schemas/valuesMap'
+          nullable: true
+          default: null
     interval:
       type: object
       description: |
@@ -2044,7 +2185,7 @@ components:
           example: 0
         intervalPeriod:
           $ref: '#/components/schemas/intervalPeriod'
-          description: Defines default start and durations of intervals.
+          # Defines start and duration of interval.
         payloads:
           type: array
           description: A list of valuesMap objects.
@@ -2054,26 +2195,20 @@ components:
       type: object
       description: |
         Defines temporal aspects of intervals.
-        A duration of default null indicates infinity.
+        A duration of default PT0S indicates instantaneous or infinity, depending on payloadType.
         A randomizeStart of default null indicates no randomization.
       required:
         - start
       properties:
         start:
           $ref: '#/components/schemas/dateTime'
-          description: The start time of an interval or set of intervals.
-          nullable: true
-          default: null
+          #  The start time of an interval or set of intervals.
         duration:
           $ref: '#/components/schemas/duration'
-          description: The duration of an interval or set of intervals.
-          nullable: true
-          default: null
+          #  The duration of an interval or set of intervals.
         randomizeStart:
           $ref: '#/components/schemas/duration'
-          description: Indicates a randomization time that may be applied to start.
-          nullable: true
-          default: null
+          #  Indicates a randomization time that may be applied to start.
     valuesMap:
       type: object
       description: |
@@ -2085,6 +2220,8 @@ components:
       properties:
         type:
           type: string
+          minLength: 1
+          maxLength: 128
           description: |
             Enumerated or private string signifying the nature of values.
             E.G. "PRICE" indicates value is to be interpreted as a currency.
@@ -2105,22 +2242,18 @@ components:
       description: A pair of floats typically used as a point on a 2 dimensional grid.
       required:
         - x
-        - "y"
+        - y
       properties:
         x:
           type: number
           format: float
           description: A value on an x axis.
           example: 1.0
-          nullable: true
-          default: null
-        "y":
+        y:
           type: number
           format: float
           description: A value on a y axis.
           example: 2.0
-          nullable: true
-          default: null
     eventPayloadDescriptor:
       type: object
       description: |
@@ -2132,22 +2265,26 @@ components:
       properties:
         objectType:
           type: string
-          description: Used as discriminator, e.g. program.payloadDescriptors
-          default: EVENT_PAYLOAD_DESCRIPTOR
+          description: Used as discriminator.
+          enum: [EVENT_PAYLOAD_DESCRIPTOR]
         payloadType:
           type: string
           description: Enumerated or private string signifying the nature of values.
+          minLength: 1
+          maxLength: 128
           example: PRICE
         units:
           type: string
           description: Units of measure.
           example: KWH
-          default: KWH
+          nullable: true
+          default: null
         currency:
           type: string
           description: Currency of price payload.
           example: USD
-          default: USD
+          nullable: true
+          default: null
     reportPayloadDescriptor:
       type: object
       description: |
@@ -2159,28 +2296,33 @@ components:
       properties:
         objectType:
           type: string
-          description: Used as discriminator, e.g. program.payloadDescriptors
-          default: REPORT_PAYLOAD_DESCRIPTOR
+          description: Used as discriminator.
+          enum: [REPORT_PAYLOAD_DESCRIPTOR]
         payloadType:
           type: string
           description: Enumerated or private string signifying the nature of values.
+          minLength: 1
+          maxLength: 128
           example: USAGE
         readingType:
           type: string
           description: Enumerated or private string signifying the type of reading.
           example: DIRECT_READ
-          default: DIRECT_READ
+          nullable: true
+          default: null
         units:
           type: string
           description: Units of measure.
           example: KWH
-          default: KWH
+          nullable: true
+          default: null
         accuracy:
           type: number
           format: float
           description: A quantification of the accuracy of a set of payload values.
           example: 0.0
-          default: 0.0
+          nullable: true
+          default: null
         confidence:
           type: integer
           format: int32
@@ -2188,31 +2330,40 @@ components:
           maximum: 100
           description: A quantification of the confidence in a set of payload values.
           example: 100
-          default: 100
+          nullable: true
+          default: null
     reportDescriptor:
       type: object
       description: |
         An object that may be used to request a report from a VEN.
-        See OpenADR REST User Guide for detailed description of how configure a report request.
       required:
         - payloadType
       properties:
         payloadType:
           type: string
           description: Enumerated or private string signifying the nature of values.
+          minLength: 1
+          maxLength: 128
           example: USAGE
         readingType:
           type: string
           description: Enumerated or private string signifying the type of reading.
           example: DIRECT_READ
-          default: DIRECT_READ
+          nullable: true
+          default: null
+        units:
+          type: string
+          description: Units of measure.
+          example: KWH
+          nullable: true
+          default: null
         targets:
           type: array
           description: A list of valuesMap objects.
-          nullable: true
-          default: null
           items:
             $ref: '#/components/schemas/valuesMap'
+          nullable: true
+          default: null
         aggregate:
           type: boolean
           description: |
@@ -2262,7 +2413,7 @@ components:
           default: 1
     objectID:
         type: string
-        pattern: '^[a-zA-Z0-9_-]*$'
+        pattern: "^[a-zA-Z0-9_-]*$"
         minLength: 1
         maxLength: 128
         description: URL safe VTN assigned object ID.
@@ -2283,21 +2434,10 @@ components:
           description: the operation on on object that triggered the notification.
           example: POST
           enum: [GET, POST, PUT, DELETE]
-        targets:
-          type: array
-          description: A list of valuesMap objects.
-          nullable: true
-          default: null
-          items:
-            $ref: '#/components/schemas/valuesMap'
         object:
           type: object
           description: the object that is the subject of the notification.
-          example: {
-            objectType: PROGRAM,
-            programName: ResTOU,
-            id: program-123,
-          }
+          example: {}
           oneOf:
             - $ref: '#/components/schemas/program'
             - $ref: '#/components/schemas/report'
@@ -2307,6 +2447,13 @@ components:
             - $ref: '#/components/schemas/resource'
           discriminator:
             propertyName: objectType
+        targets:
+          type: array
+          description: A list of valuesMap objects.
+          items:
+            $ref: '#/components/schemas/valuesMap'
+          nullable: true
+          default: null
     objectTypes:
       type: string
       description: Types of objects addressable through API.
@@ -2314,14 +2461,108 @@ components:
       enum: [PROGRAM, EVENT, REPORT, SUBSCRIPTION, VEN, RESOURCE]
     dateTime:
       type: string
+      format: date-time
       description: datetime in ISO 8601 format
       example: 2023-06-15T09:30:00Z
-      format: date-time
     duration:
       type: string
+      pattern: "^(-?)P(?=\\d|T\\d)(?:(\\d+)Y)?(?:(\\d+)M)?(?:(\\d+)([DW]))?(?:T(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+(?:\\.\\d+)?)S)?)?$"
       description: duration in ISO 8601 format
       example: PT1H
-      format: duration
+      default: PT0S
+    clientCredentialRequest:
+      type: object
+      description: |
+        Body of POST request to /auth/token. Note snake case per https://www.rfc-editor.org/rfc/rfc6749
+      required:
+        - grant_type
+        - client_id
+        - client_secret
+      properties:
+        grant_type:
+          type: string
+          description: OAuth2 grant type, must be 'client_credentials'
+          example: client_credentials
+          enum: [client_credentials]
+        client_id:
+          type: string
+          minLength: 1
+          maxLength: 4096
+          description: client ID to exchange for bearer token.
+          example: ven_client_99
+        client_secret:
+          type: string
+          minLength: 1
+          maxLength: 4096
+          description: client secret to exchange for bearer token.
+          example: ven_secret_99
+        scope:
+          type: string
+          minLength: 0
+          maxLength: 4096
+          description: application defined scope.
+          example: read_all
+    clientCredentialResponse:
+      type: object
+      description: |
+        Body response from /auth/token. Note snake case per https://www.rfc-editor.org/rfc/rfc6749
+      required:
+        - access_token
+        - token_type
+      properties:
+        access_token:
+          type: string
+          minLength: 1
+          maxLength: 4096
+          description: access token povided by Authorization service
+          example: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
+        token_type:
+          type: string
+          description: token type, must be Bearer.
+          example: Bearer
+          enum: [Bearer]
+        expires_in:
+          type: integer
+          description: expiration period in seconds.
+          example: 3600
+        refresh_token:
+          type: string
+          minLength: 1
+          maxLength: 4096
+          description: refresh token povided by Authorization service
+          example: IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk
+        scope:
+          type: string
+          minLength: 0
+          maxLength: 4096
+          description: application defined scope.
+          example: read_all
+    authError:
+      type: object
+      description: error reponse on HTTP 400 from auth/token per https://www.rfc-editor.org/rfc/rfc6749
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: As described in rfc6749 |
+            invalid_request – The request is missing a parameter so the server can’t proceed with the request. This may also be returned if the request includes an unsupported parameter or repeats a parameter.
+            invalid_client – Client authentication failed, such as if the request contains an invalid client ID or secret. Send an HTTP 401 response in this case.
+            invalid_grant – The authorization code (or user’s password for the password grant type) is invalid or expired. This is also the error you would return if the redirect URL given in the authorization grant does not match the URL provided in this access token request.
+            invalid_scope – For access token requests that include a scope (password or client_credentials grants), this error indicates an invalid scope value in the request.
+            unauthorized_client – This client is not authorized to use the requested grant type. For example, if you restrict which applications can use the Implicit grant, you would return this error for the other apps.
+            unsupported_grant_type – If a grant type is requested that the authorization server doesn’t recognize, use this code. Note that unknown grant types also use this specific error code rather than using the invalid_request above.
+          example: invalid_request
+          enum: [invalid_request, invalid_client, invalid_grant, invalid_scope, unauthorized_client, unsupported_grant_type]
+        error_description:
+          type: string
+          description: Should be a sentence or two at most describing the circumstance of the error
+          example: Request was missing the 'client_id' parameter.
+        error_uri:
+          type: string
+          format: uri
+          description: Optional reference to more detailed error description
+          example: See the full API docs at https://authorization-server.com/docs/access_toke
     problem:
       type: object
       description: |
