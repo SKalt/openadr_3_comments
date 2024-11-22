@@ -1,0 +1,204 @@
+openapi: 3.0.0
+servers:
+  - description: base path
+    url: http://localhost:8081/openadr3/3.0.1
+info:
+  title: OpenADR 3 API
+  version: "3.0.1"
+  description: |
+    The OpenADR 3 API supports energy retailer to energy customer Demand Response programs.
+    See OpenADR 3 User Guide and definitions for detailed descriptions of usage.
+    The API includes the following capabilities and operations:
+
+    __Manage programs:__
+
+    * Create/Update/Delete a program
+    * Search programs
+
+    __Manage events:__
+
+    * Create/Update/Delete an event
+    * Search events
+
+    __Manage reports:__
+
+    * Create/Update/Delete a report
+    * Search reports
+
+    __Manage subscriptions:__
+
+    * Create/Update/Delete subscriptions to programs, events, and reports
+    * Search subscriptions
+    * Subscriptions allows clients to register a callback URL (webhook) to be notified
+      on the change of state of a resource
+
+    __Manage vens:__
+
+    * Create/Update/Delete vens and ven resources
+    * Search ven and ven resources
+
+    __Manage tokens:__
+
+    * Obtain an access token
+    * This endpoint is provided as a convenience and may be neglected in a commercial implementation
+  contact:
+    email: frank@pajaritotech.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+paths:
+  # OpenADR 3.0.1 RESTful API
+  /programs: { $ref: "./1_oadr3.0.1.yaml#/paths/~1programs"}
+  /programs/{programID}: { $ref: "./1_oadr3.0.1.yaml#/paths/~1programs~1{programID}"}
+  /reports: { $ref: "./1_oadr3.0.1.yaml#/paths/~1reports" }
+  /reports/{reportID}: { $ref: "./1_oadr3.0.1.yaml#/paths/~1reports~1{reportID}" }
+  /events: { $ref: "./1_oadr3.0.1.yaml#/paths/~1events" }
+  /events/{eventID}: { $ref: "./1_oadr3.0.1.yaml#/paths/~1events~1{eventID}" }
+  /subscriptions: { $ref: "./1_oadr3.0.1.yaml#/paths/~1subscriptions" }
+  /subscriptions/{subscriptionID}: { $ref: "./1_oadr3.0.1.yaml#/paths/~1subscriptions~1{subscriptionID}" }
+  /vens: { $ref: "./1_oadr3.0.1.yaml#/paths/~1vens" }
+  /vens/{venID}: { $ref: "./1_oadr3.0.1.yaml#/paths/~1vens~1{venID}" }
+  /vens/{venID}/resources: { $ref: "./1_oadr3.0.1.yaml#/paths/~1vens~1{venID}~1resources" }
+  /vens/{venID}/resources/{resourceID}: { $ref: "./1_oadr3.0.1.yaml#/paths/~1vens~1{venID}~1resources~1{resourceID}" }
+
+  # RI-specific extension
+  /auth/token:
+    post:
+      tags:
+        - Auth
+      summary: fetch a token
+      operationId: fetchToken
+      description: Return an access token based on clientID and clientSecret.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/clientCredentialRequest'
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clientCredentialResponse'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: "./1_oadr3.0.1.yaml#/components/schemas/problem" 
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: "./1_oadr3.0.1.yaml#/components/schemas/problem" 
+
+components:
+  schemas:
+    # The path reference above pull in the OpenADR 3.0.1 schema definitions
+    # but we're still using the problem schema for one error code here, so we
+    # problem: { $ref: "./1_oadr3.0.1.yaml#/components/schemas/problem" }
+
+
+    # RI-specific extensions
+    clientCredentialRequest:
+      type: object
+      description: |
+        Body of POST request to /auth/token. Note snake case per https://www.rfc-editor.org/rfc/rfc6749
+      required:
+        - grant_type
+        - client_id
+        - client_secret
+      properties:
+        grant_type:
+          type: string
+          description: OAuth2 grant type, must be 'client_credentials'
+          example: client_credentials
+          enum: [client_credentials]
+        client_id:
+          type: string
+          minLength: 1
+          maxLength: 4096
+          description: client ID to exchange for bearer token.
+          example: ven_client_99
+        client_secret:
+          type: string
+          minLength: 1
+          maxLength: 4096
+          description: client secret to exchange for bearer token.
+          example: ven_secret_99
+        scope:
+          type: string
+          minLength: 0
+          maxLength: 4096
+          description: application defined scope.
+          example: read_all
+    clientCredentialResponse:
+      type: object
+      description: |
+        Body response from /auth/token. Note snake case per https://www.rfc-editor.org/rfc/rfc6749
+      required:
+        - access_token
+        - token_type
+      properties:
+        access_token:
+          type: string
+          minLength: 1
+          maxLength: 4096
+          description: access token provided by Authorization service
+          example: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
+        token_type:
+          type: string
+          description: token type, must be Bearer.
+          example: Bearer
+          enum: [Bearer]
+        expires_in:
+          type: integer
+          description: expiration period in seconds.
+          example: 3600
+        refresh_token:
+          type: string
+          minLength: 1
+          maxLength: 4096
+          description: refresh token provided by Authorization service
+          example: IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk
+        scope:
+          type: string
+          minLength: 0
+          maxLength: 4096
+          description: application defined scope.
+          example: read_all
+    authError:
+      type: object
+      description: error response on HTTP 400 from auth/token per https://www.rfc-editor.org/rfc/rfc6749
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: As described in rfc6749 |
+            invalid_request – The request is missing a parameter so the server can’t proceed with the request. This may also be returned if the request includes an unsupported parameter or repeats a parameter.
+            invalid_client – Client authentication failed, such as if the request contains an invalid client ID or secret. Send an HTTP 401 response in this case.
+            invalid_grant – The authorization code (or user’s password for the password grant type) is invalid or expired. This is also the error you would return if the redirect URL given in the authorization grant does not match the URL provided in this access token request.
+            invalid_scope – For access token requests that include a scope (password or client_credentials grants), this error indicates an invalid scope value in the request.
+            unauthorized_client – This client is not authorized to use the requested grant type. For example, if you restrict which applications can use the Implicit grant, you would return this error for the other apps.
+            unsupported_grant_type – If a grant type is requested that the authorization server doesn’t recognize, use this code. Note that unknown grant types also use this specific error code rather than using the invalid_request above.
+          example: invalid_request
+          enum: [invalid_request, invalid_client, invalid_grant, invalid_scope, unauthorized_client, unsupported_grant_type]
+        error_description:
+          type: string
+          description: Should be a sentence or two at most describing the circumstance of the error
+          example: Request was missing the 'client_id' parameter.
+        error_uri:
+          type: string
+          format: uri
+          description: Optional reference to more detailed error description
+          example: See the full API docs at https://authorization-server.com/docs/access_toke
