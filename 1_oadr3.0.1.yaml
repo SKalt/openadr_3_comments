@@ -101,7 +101,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/program'
+                  $ref: '#/components/schemas/program-output'
         '400':
           description: Bad Request.
           content:
@@ -133,7 +133,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/program'
+              $ref: '#/components/schemas/program-input'
         description: program item to add.
       responses:
         '201':
@@ -141,7 +141,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/program'
+                $ref: '#/components/schemas/program-output'
         '400':
           description: Bad Request.
           content:
@@ -190,7 +190,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/program'
+                $ref: '#/components/schemas/program-output'
         '400':
           description: Bad Request.
           content:
@@ -228,7 +228,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/program'
+              $ref: '#/components/schemas/program-input'
         description: program item to update.
       responses:
         '200':
@@ -236,7 +236,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/program'
+                $ref: '#/components/schemas/program-output'
         '400':
           description: Bad Request.
           content:
@@ -282,7 +282,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/program'
+                $ref: '#/components/schemas/program-output'
         '400':
           description: Bad Request.
           content:
@@ -367,7 +367,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/report'
+                  $ref: '#/components/schemas/report-input'
         '400':
           description: Bad Request.
           content:
@@ -399,7 +399,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/report'
+              $ref: '#/components/schemas/report-input'
         description: report item to add.
       responses:
         '201':
@@ -407,7 +407,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/report-output'
         '400':
           description: Bad Request.
           content:
@@ -456,7 +456,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/report-output'
         '400':
           description: Bad Request.
           content:
@@ -494,7 +494,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/report'
+              $ref: '#/components/schemas/report-input'
         description: Report item to update.
       responses:
         '200':
@@ -502,7 +502,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/report-output'
         '400':
           description: Bad Request.
           content:
@@ -548,7 +548,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/report'
+                $ref: '#/components/schemas/report-output'
         '400':
           description: Bad Request.
           content:
@@ -634,7 +634,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/event'
+                  $ref: '#/components/schemas/event-output'
         '400':
           description: Bad Request.
           content:
@@ -666,7 +666,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/event'
+              $ref: '#/components/schemas/event-input'
         description: Event item to add.
       responses:
         '201':
@@ -674,7 +674,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/event'
+                $ref: '#/components/schemas/event-output'
         '400':
           description: Bad Request.
           content:
@@ -723,7 +723,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/event'
+                $ref: '#/components/schemas/event-output'
         '400':
           description: Bad Request.
           content:
@@ -761,7 +761,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/event'
+              $ref: '#/components/schemas/event-input'
         description: event item to update.
       responses:
         '200':
@@ -769,7 +769,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/event'
+                $ref: '#/components/schemas/event-output'
         '400':
           description: Bad Request.
           content:
@@ -816,7 +816,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/event'
+                $ref: '#/components/schemas/event-output'
         '400':
           description: Bad Request.
           content:
@@ -920,7 +920,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/subscription'
+                  $ref: '#/components/schemas/subscription-output'
         '400':
           description: Bad Request.
           content:
@@ -953,7 +953,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/subscription'
+              $ref: '#/components/schemas/subscription-input'
       callbacks:   # Callback definition
         notifyEvent:   # callback Event name
           '{$request.body#/callbackUrl}':   # The callback URL. Refers to the passed URL
@@ -973,7 +973,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/subscription'
+                $ref: '#/components/schemas/subscription-output'
         '400':
           description: Bad Request.
           content:
@@ -1021,7 +1021,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/subscription'
+                $ref: '#/components/schemas/subscription-output'
         '400':
           description: Bad Request.
           content:
@@ -1059,7 +1059,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/subscription'
+              $ref: '#/components/schemas/subscription-input'
         description: subscription item to update.
       responses:
         '200':
@@ -1067,7 +1067,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/subscription'
+                $ref: '#/components/schemas/subscription-output'
         '400':
           description: Bad Request.
           content:
@@ -1113,7 +1113,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/subscription'
+                $ref: '#/components/schemas/subscription-output'
         '400':
           description: Bad Request.
           content:
@@ -1202,7 +1202,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ven'
+                  $ref: '#/components/schemas/ven-output'
         '400':
           description: Bad Request.
           content:
@@ -1235,14 +1235,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ven'
+              $ref: '#/components/schemas/ven-input'
       responses:
         '201':
           description: Created.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ven'
+                $ref: '#/components/schemas/ven-output'
         '400':
           description: Bad Request.
           content:
@@ -1290,7 +1290,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ven'
+                $ref: '#/components/schemas/ven-output'
         '400':
           description: Bad Request.
           content:
@@ -1328,7 +1328,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ven'
+              $ref: '#/components/schemas/ven-input'
         description: ven item to update.
       responses:
         '200':
@@ -1336,7 +1336,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ven'
+                $ref: '#/components/schemas/ven-output'
         '400':
           description: Bad Request.
           content:
@@ -1382,7 +1382,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ven'
+                $ref: '#/components/schemas/ven-output'
         '400':
           description: Bad Request.
           content:
@@ -1478,7 +1478,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/resource'
+                  $ref: '#/components/schemas/resource-output'
         '400':
           description: Bad Request.
           content:
@@ -1517,14 +1517,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/resource'
+              $ref: '#/components/schemas/resource-input'
       responses:
         '201':
           description: Created.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/resource'
+                $ref: '#/components/schemas/resource-output'
         '400':
           description: Bad Request.
           content:
@@ -1584,7 +1584,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/resource'
+                $ref: '#/components/schemas/resource-output'
         '400':
           description: Bad Request.
           content:
@@ -1622,7 +1622,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/resource'
+              $ref: '#/components/schemas/resource-input'
         description: resource item to update.
       responses:
         '200':
@@ -1630,7 +1630,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/resource'
+                $ref: '#/components/schemas/resource-output'
         '400':
           description: Bad Request.
           content:
@@ -1676,7 +1676,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/resource'
+                $ref: '#/components/schemas/resource-output'
         '400':
           description: Bad Request.
           content:
@@ -1742,26 +1742,34 @@ paths:
 components:
   schemas:
     # examples are provided at the element level to aid readability and to support Reference Implementation UI
-    program:
+    optional-metadata:
+      type: object
+      description: Metadata included in server responses.
+      properties:
+        id: { $ref: '#/components/schemas/objectID' }
+        createdDateTime: { $ref: '#/components/schemas/dateTime' }
+        modificationDateTime: { $ref: '#/components/schemas/dateTime' }
+    required-metadata:
+      type: object
+      description: Metadata included in server responses.
+      required:
+        - id
+        - createdDateTime
+        - modificationDateTime
+      properties:
+        id: { $ref: '#/components/schemas/objectID' }
+        createdDateTime: { $ref: '#/components/schemas/dateTime' }
+        modificationDateTime: { $ref: '#/components/schemas/dateTime' }
+    program-data:
       type: object
       description: Provides program specific metadata from VTN to VEN.
       required:
         - programName
       properties:
-        id:
-          $ref: '#/components/schemas/objectID'
-          # VTN provisioned on object creation.
-        createdDateTime:
-          $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object creation.
-        modificationDateTime:
-          $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object modification.
         objectType:
           type: string
           description: Used as discriminator
           enum: [PROGRAM]
-          # VTN provisioned on object creation.
         programName:
           type: string
           description: Short name to uniquely identify program.
@@ -1855,6 +1863,19 @@ components:
           nullable: true
           default: null
     report:
+    program-input:
+      "allOf":
+        - $ref: '#/components/schemas/program-data'
+        - $ref: '#/components/schemas/optional-metadata'
+    program-output:
+      "allOf":
+        - $ref: '#/components/schemas/program-data'
+        - $ref: '#/components/schemas/required-metadata'
+        - type: object
+          required: [ objectType ]
+          properties:
+            objectType: { $ref: '#/components/schemas/program-data/properties/objectType' }
+    report-data:
       type: object
       description: report object.
       required:
@@ -1863,15 +1884,6 @@ components:
         - clientName
         - resources
       properties:
-        id:
-          $ref: '#/components/schemas/objectID'
-          # VTN provisioned on object creation.
-        createdDateTime:
-          $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object creation.
-        modificationDateTime:
-          $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object modification.
         objectType:
           type: string
           description: Used as discriminator
@@ -1927,7 +1939,19 @@ components:
                 description: A list of interval objects.
                 items:
                   $ref: '#/components/schemas/interval'
-    event:
+    report-input:
+      "allOf":
+        - $ref: '#/components/schemas/report-data'
+        - $ref: '#/components/schemas/optional-metadata'
+    report-output:
+      "allOf":
+        - $ref: '#/components/schemas/report-data'
+        - $ref: '#/components/schemas/required-metadata'
+        - type: object
+          required: [ objectType ]
+          properties:
+            objectType: { $ref: '#/components/schemas/report-data/properties/objectType' }
+    event-data:
       type: object
       description: |
         Event object to communicate a Demand Response request to VEN.
@@ -1936,15 +1960,6 @@ components:
         - programID
         - intervals
       properties:
-        id:
-          $ref: '#/components/schemas/objectID'
-          # VTN provisioned on object creation.
-        createdDateTime:
-          $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object creation.
-        modificationDateTime:
-          $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object modification.
         objectType:
           type: string
           description: Used as discriminator
@@ -1986,7 +2001,7 @@ components:
           items:
             $ref: '#/components/schemas/eventPayloadDescriptor'
           nullable: true
-          default: null
+          default: []
         intervalPeriod:
           $ref: '#/components/schemas/intervalPeriod'
           # Defines default start and durations of intervals.
@@ -1995,7 +2010,19 @@ components:
           description: A list of interval objects.
           items:
             $ref: '#/components/schemas/interval'
-    subscription:
+    event-input:
+      "allOf":
+        - $ref: '#/components/schemas/event-data'
+        - $ref: '#/components/schemas/optional-metadata'
+    event-output:
+      "allOf":
+        - $ref: '#/components/schemas/event-data'
+        - $ref: '#/components/schemas/required-metadata'
+        - type: object
+          required: [ objectType ]
+          properties:
+            objectType: { $ref: '#/components/schemas/event-data/properties/objectType' }
+    subscription-data:
       type: object
       description: |
         An object created by a client to receive notification of operations on objects.
@@ -2006,15 +2033,6 @@ components:
         - programID
         - objectOperations
       properties:
-        id:
-          $ref: '#/components/schemas/objectID'
-          # VTN provisioned on object creation.
-        createdDateTime:
-          $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object creation.
-        modificationDateTime:
-          $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object modification.
         objectType:
           type: string
           description: Used as discriminator.
@@ -2075,20 +2093,24 @@ components:
           nullable: true
           default: null
     ven:
+    subscription-input:
+      "allOf":
+        - $ref: '#/components/schemas/subscription-data'
+        - $ref: '#/components/schemas/optional-metadata'
+    subscription-output:
+      "allOf":
+        - $ref: '#/components/schemas/subscription-data'
+        - $ref: '#/components/schemas/required-metadata'
+        - type: object
+          required: [ objectType ]
+          properties:
+            objectType: { $ref: '#/components/schemas/subscription-data/properties/objectType' }
+    ven-data:
       type: object
       description: Ven represents a client with the ven role.
       required:
         - venName
       properties:
-        id:
-          $ref: '#/components/schemas/objectID'
-          # VTN provisioned on object creation.
-        createdDateTime:
-          $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object creation.
-        modificationDateTime:
-          $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object modification.
         objectType:
           type: string
           description: Used as discriminator.
@@ -2120,25 +2142,29 @@ components:
           type: array
           description: A list of resource objects representing end-devices or systems.
           items:
-            $ref: '#/components/schemas/resource'
+            $ref: '#/components/schemas/resource-data'
           nullable: true
           default: null
     resource:
+    ven-input:
+      "allOf":
+        - $ref: '#/components/schemas/ven-data'
+        - $ref: '#/components/schemas/optional-metadata'
+    ven-output:
+      "allOf":
+        - $ref: '#/components/schemas/ven-data'
+        - $ref: '#/components/schemas/required-metadata'
+        - type: object
+          required: [ objectType ]
+          properties:
+            objectType: { $ref: '#/components/schemas/ven-data/properties/objectType' }
+    resource-data:
       type: object
       description: |
         A resource is an energy device or system subject to control by a VEN.
       required:
         - resourceName
       properties:
-        id:
-          $ref: '#/components/schemas/objectID'
-          # VTN provisioned on object creation.
-        createdDateTime:
-          $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object creation.
-        modificationDateTime:
-          $ref: '#/components/schemas/dateTime'
-          #  VTN provisioned on object modification.
         objectType:
           type: string
           description: Used as discriminator.
@@ -2169,6 +2195,18 @@ components:
             $ref: '#/components/schemas/valuesMap'
           nullable: true
           default: null
+    resource-input:
+      "allOf":
+        - $ref: '#/components/schemas/resource-data'
+        - $ref: '#/components/schemas/optional-metadata'
+    resource-output:
+      "allOf":
+        - $ref: '#/components/schemas/resource-data'
+        - $ref: '#/components/schemas/required-metadata'
+        - type: object
+          required: [ objectType ]
+          properties:
+            objectType: { $ref: '#/components/schemas/resource-data/properties/objectType' }
     interval:
       type: object
       description: |
@@ -2293,6 +2331,7 @@ components:
         associated descriptor provides necessary context such as units and data quality.
       required:
         - payloadType
+        - objectType
       properties:
         objectType:
           type: string
@@ -2439,12 +2478,12 @@ components:
           description: the object that is the subject of the notification.
           example: {}
           oneOf:
-            - $ref: '#/components/schemas/program'
-            - $ref: '#/components/schemas/report'
-            - $ref: '#/components/schemas/event'
-            - $ref: '#/components/schemas/subscription'
-            - $ref: '#/components/schemas/ven'
-            - $ref: '#/components/schemas/resource'
+            - $ref: '#/components/schemas/program-output'
+            - $ref: '#/components/schemas/report-output'
+            - $ref: '#/components/schemas/event-output'
+            - $ref: '#/components/schemas/subscription-output'
+            - $ref: '#/components/schemas/ven-output'
+            - $ref: '#/components/schemas/resource-output'
           discriminator:
             propertyName: objectType
         targets:
