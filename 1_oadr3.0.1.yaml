@@ -2474,7 +2474,13 @@ components:
         object:
           type: object
           description: the object that is the subject of the notification.
-          example: {}
+          example: {
+            objectType: "VEN",
+            id: "ven-999",
+            venName: "VEN-999",
+            modificationDateTime: "2023-06-15T09:30:00Z",
+            createdDateTime: "2023-06-15T09:30:00Z",
+          }
           oneOf:
             - $ref: '#/components/schemas/program-output'
             - $ref: '#/components/schemas/report-output'
