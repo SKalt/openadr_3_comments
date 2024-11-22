@@ -958,6 +958,7 @@ paths:
         notifyEvent:   # callback Event name
           '{$request.body#/callbackUrl}':   # The callback URL. Refers to the passed URL
             post:
+              operationId: postNotificationCallback
               requestBody:   # Contents of the callback message
                 required: true
                 content:
