@@ -2297,6 +2297,7 @@ components:
         associated descriptor provides necessary context such as units and currency.
       required:
         - payloadType
+        - objectType
       properties:
         objectType:
           type: string
