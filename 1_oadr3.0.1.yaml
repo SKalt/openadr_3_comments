@@ -1831,7 +1831,7 @@ components:
                 description: A human or machine readable program description
                 example: www.myCorporation.com/myProgramDescription
           nullable: true
-          default: null
+          default: []
         bindingEvents:
           type: boolean
           description: True if events are fixed once transmitted.
@@ -1854,15 +1854,14 @@ components:
             discriminator:
               propertyName: objectType
           nullable: true
-          default: null
+          default: []
         targets:
           type: array
           description: A list of valuesMap objects.
           items:
             $ref: '#/components/schemas/valuesMap'
           nullable: true
-          default: null
-    report:
+          default: []
     program-input:
       "allOf":
         - $ref: '#/components/schemas/program-data'
@@ -1913,7 +1912,7 @@ components:
           items:
             $ref: '#/components/schemas/reportPayloadDescriptor'
           nullable: true
-          default: null
+          default: []
           # An optional list of objects that provide context to payload types.
         resources:
           type: array
@@ -1987,14 +1986,14 @@ components:
           items:
             $ref: '#/components/schemas/valuesMap'
           nullable: true
-          default: null
+          default: []
         reportDescriptors:
           type: array
           description: A list of reportDescriptor objects. Used to request reports from VEN.
           items:
             $ref: '#/components/schemas/reportDescriptor'
           nullable: true
-          default: null
+          default: []
         payloadDescriptors:
           type: array
           description: A list of payloadDescriptor objects.
@@ -2091,8 +2090,7 @@ components:
           items:
             $ref: '#/components/schemas/valuesMap'
           nullable: true
-          default: null
-    ven:
+          default: []
     subscription-input:
       "allOf":
         - $ref: '#/components/schemas/subscription-data'
@@ -2130,22 +2128,21 @@ components:
           items:
             $ref: '#/components/schemas/valuesMap'
           nullable: true
-          default: null
+          default: []
         targets:
           type: array
           description: A list of valuesMap objects describing target criteria.
           items:
             $ref: '#/components/schemas/valuesMap'
           nullable: true
-          default: null
+          default: []
         resources:
           type: array
           description: A list of resource objects representing end-devices or systems.
           items:
             $ref: '#/components/schemas/resource-data'
           nullable: true
-          default: null
-    resource:
+          default: []
     ven-input:
       "allOf":
         - $ref: '#/components/schemas/ven-data'
@@ -2187,14 +2184,14 @@ components:
           items:
             $ref: '#/components/schemas/valuesMap'
           nullable: true
-          default: null
+          default: []
         targets:
           type: array
           description: A list of valuesMap objects describing target criteria.
           items:
             $ref: '#/components/schemas/valuesMap'
           nullable: true
-          default: null
+          default: []
     resource-input:
       "allOf":
         - $ref: '#/components/schemas/resource-data'
@@ -2402,7 +2399,7 @@ components:
           items:
             $ref: '#/components/schemas/valuesMap'
           nullable: true
-          default: null
+          default: []
         aggregate:
           type: boolean
           description: |
@@ -2492,7 +2489,7 @@ components:
           items:
             $ref: '#/components/schemas/valuesMap'
           nullable: true
-          default: null
+          default: []
     objectTypes:
       type: string
       description: Types of objects addressable through API.
